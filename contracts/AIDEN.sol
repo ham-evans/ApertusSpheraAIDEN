@@ -41,7 +41,7 @@ contract AIDEN is Delegated, ERC721Batch {
   receive() external payable {}
 
   function tokenURI(uint tokenId) external view override returns (string memory) {
-    require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+    require(_exists(tokenId), "URI query for nonexistent token");
     return string(abi.encodePacked(_tokenURIPrefix, tokenId.toString(), _tokenURISuffix));
   }
 
@@ -74,7 +74,7 @@ contract AIDEN is Delegated, ERC721Batch {
     }
   }
 
-  function setBaseURI(string calldata _newPrefix, string calldata _newSuffix) external onlyDelegates{
+  function setURI(string calldata _newPrefix, string calldata _newSuffix) external onlyDelegates{
     _tokenURIPrefix = _newPrefix;
     _tokenURISuffix = _newSuffix;
   }

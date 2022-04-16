@@ -48,4 +48,12 @@ contract( 'Combined', async function( accts ){
     await pfp.claimSingle( 0 );
     expect((await apertus.totalSupply(0)).toNumber()).to.equal(curr - 1);
   });
+
+  it( "Confirm and change token uri", async () => {
+    await apertus.mint(0, 10);
+    await pfp.claimSingle( 0 );
+    await expect(pfp.tokenURI( 1 )).to.be.revertedWith('URI query for nonexistent token');
+    await pfp.setURI('www.hello.com/', '.json');
+    expect(await pfp.tokenURI(0)).to.equal('www.hello.com/0.json');
+  });
 });
